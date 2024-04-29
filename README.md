@@ -377,6 +377,531 @@ int main() {
     return 0;
 }
 
+12- Faça um programa que lê as duas notas parciais obtidas por um aluno numa disciplina ao longo
+de um semestre, e calcule a sua média. A atribuição de conceitos obedece à tabela abaixo:
+1. Média de Aproveitamento Conceito
+2. Entre 9.0 e 10.0 A
+3. Entre 7.5 e 9.0 B
+4. Entre 6.0 e 7.5 C
+5. Entre 4.0 e 6.0 D
+6. Entre 4.0 e zero E
+O algoritmo deve mostrar na tela as notas, a média, o conceito correspondente e a mensagem
+“APROVADO” se o conceito for A, B ou C ou “REPROVADO” se o conceito for D ou E.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    float nota1, nota2, media;
+    char conceito;
+
+    // Solicita as notas ao usuário
+    printf("Digite a primeira nota: ");
+    scanf("%f", &nota1);
+    printf("Digite a segunda nota: ");
+    scanf("%f", &nota2);
+
+    // Calcula a média
+    media = (nota1 + nota2) / 2.0;
+
+    // Determina o conceito com base na média
+    if (media >= 9.0) {
+        conceito = 'A';
+    } else if (media >= 7.5) {
+        conceito = 'B';
+    } else if (media >= 6.0) {
+        conceito = 'C';
+    } else if (media >= 4.0) {
+        conceito = 'D';
+    } else {
+        conceito = 'E';
+    }
+
+    // Imprime as notas, a média, o conceito correspondente e a situação do aluno
+    printf("\nNotas: %.2f e %.2f\n", nota1, nota2);
+    printf("Média: %.2f\n", media);
+    printf("Conceito: %c\n", conceito);
+    if (conceito == 'A' || conceito == 'B' || conceito == 'C') {
+        printf("APROVADO\n");
+    } else {
+        printf("REPROVADO\n");
+    }
+
+    return 0;
+}
+
+13- Faça um programa que calcule as raízes de uma equação do segundo grau, na forma ax2 + bx +
+c. O programa deverá pedir os valores de a, b e c e fazer as consistências, informando ao usuário
+nas seguintes situações:
+1. Se o usuário informar o valor de A igual a zero, a equação não é do segundo grau e o
+programa não deve fazer pedir os demais valores, sendo encerrado;
+2. Se o delta calculado for negativo, a equação não possui raizes reais. Informe ao usuário
+e encerre o programa;
+3. Se o delta calculado for igual a zero a equação possui apenas uma raiz real; informe-a
+ao usuário;
+4. Se o delta for positivo, a equação possui duas raiz reais; informe-as ao usuário;
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    // Declaração das variáveis
+    float a, b, c, delta, raiz1, raiz2;
+
+    // Solicita os valores de a, b e c ao usuário
+    printf("Digite o valor de a: ");
+    scanf("%f", &a);
+
+    // Verifica se a equação é do segundo grau
+    if (a == 0) {
+        printf("A equação não é do segundo grau.\n");
+        return 0; // Encerra o programa
+    }
+
+    printf("Digite o valor de b: ");
+    scanf("%f", &b);
+    printf("Digite o valor de c: ");
+    scanf("%f", &c);
+
+    // Calcula o delta
+    delta = b * b - 4 * a * c;
+
+    // Verifica o valor do delta e calcula as raízes
+    if (delta < 0) {
+        printf("A equação não possui raízes reais.\n");
+    } else if (delta == 0) {
+        raiz1 = -b / (2 * a);
+        printf("A equação possui uma raiz real: %.2f\n", raiz1);
+    } else {
+        raiz1 = (-b + sqrt(delta)) / (2 * a);
+        raiz2 = (-b - sqrt(delta)) / (2 * a);
+        printf("A equação possui duas raízes reais: %.2f e %.2f\n", raiz1, raiz2);
+    }
+
+    return 0;
+}
+14- Faça um Programa que peça um número correspondente a um determinado ano e em seguida
+informe se este ano é ou não bissexto.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração da variável para armazenar o ano
+    int ano;
+
+    // Solicita ao usuário o ano
+    printf("Digite um ano: ");
+    scanf("%d", &ano);
+
+    // Verifica se o ano é bissexto
+    if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
+        printf("%d é um ano bissexto.\n", ano);
+    } else {
+        printf("%d não é um ano bissexto.\n", ano);
+    }
+
+    return 0;
+}
+
+15- Faça um Programa para um caixa eletrônico. O programa deverá perguntar ao usuário a valor do
+saque e depois informar quantas notas de cada valor serão fornecidas. As notas disponíveis serão
+as de 1, 5, 10, 50 e 100 reais. O valor mínimo é de 10 reais e o máximo de 600 reais. O programa
+não deve se preocupar com a quantidade de notas existentes na máquina.
+1. Exemplo 1: Para sacar a quantia de 256 reais, o programa fornece duas notas de 100,
+uma nota de 50, uma nota de 5 e uma nota de 1;
+2. Exemplo 2: Para sacar a quantia de 399 reais, o programa fornece três notas de 100,
+uma nota de 50, quatro notas de 10, uma nota de 5 e quatro notas de 1.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    int valor_saque, notas_100, notas_50, notas_10, notas_5, notas_1;
+
+    // Solicita ao usuário o valor do saque
+    printf("Digite o valor do saque (entre 10 e 600 reais): ");
+    scanf("%d", &valor_saque);
+
+    // Verifica se o valor do saque está dentro do intervalo permitido
+    if (valor_saque < 10 || valor_saque > 600) {
+        printf("Valor inválido para saque.\n");
+        return 0; // Encerra o programa
+    }
+
+    // Calcula o número de notas de cada valor
+    notas_100 = valor_saque / 100;
+    valor_saque = valor_saque % 100;
+
+    notas_50 = valor_saque / 50;
+    valor_saque = valor_saque % 50;
+
+    notas_10 = valor_saque / 10;
+    valor_saque = valor_saque % 10;
+
+    notas_5 = valor_saque / 5;
+    valor_saque = valor_saque % 5;
+
+    notas_1 = valor_saque;
+
+    // Imprime as notas fornecidas ao usuário
+    printf("\nNotas fornecidas para o saque:\n");
+    printf("Notas de 100 reais: %d\n", notas_100);
+    printf("Notas de 50 reais: %d\n", notas_50);
+    printf("Notas de 10 reais: %d\n", notas_10);
+    printf("Notas de 5 reais: %d\n", notas_5);
+    printf("Notas de 1 real: %d\n", notas_1);
+
+    return 0;
+}
+
+16- Faça um Programa que leia 2 números e em seguida pergunte ao usuário qual operação ele deseja
+realizar. O resultado da operação deve ser acompanhado de uma frase que diga se o número é:
+1. par ou ímpar;
+2. positivo ou negativo;
+3. inteiro ou decimal.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    float num1, num2, resultado;
+    char operacao;
+
+    // Solicita os dois números ao usuário
+    printf("Digite o primeiro número: ");
+    scanf("%f", &num1);
+    printf("Digite o segundo número: ");
+    scanf("%f", &num2);
+
+    // Solicita ao usuário a operação desejada
+    printf("Escolha a operação desejada:\n");
+    printf("1. Soma (+)\n");
+    printf("2. Subtração (-)\n");
+    printf("3. Multiplicação (*)\n");
+    printf("4. Divisão (/)\n");
+    printf("Operação: ");
+    scanf(" %c", &operacao);
+
+    // Realiza a operação escolhida
+    switch (operacao) {
+        case '+':
+            resultado = num1 + num2;
+            printf("Resultado da soma: %.2f\n", resultado);
+            break;
+        case '-':
+            resultado = num1 - num2;
+            printf("Resultado da subtração: %.2f\n", resultado);
+            break;
+        case '*':
+            resultado = num1 * num2;
+            printf("Resultado da multiplicação: %.2f\n", resultado);
+            break;
+        case '/':
+            // Verifica se o segundo número é zero para evitar divisão por zero
+            if (num2 == 0) {
+                printf("Erro: divisão por zero!\n");
+                break;
+            }
+            resultado = num1 / num2;
+            printf("Resultado da divisão: %.2f\n", resultado);
+            break;
+        default:
+            printf("Operação inválida!\n");
+            return 0; // Encerra o programa
+    }
+
+    // Verifica se o resultado é par ou ímpar
+    if ((int)resultado % 2 == 0) {
+        printf("O resultado é par.\n");
+    } else {
+        printf("O resultado é ímpar.\n");
+    }
+
+    // Verifica se o resultado é positivo ou negativo
+    if (resultado > 0) {
+        printf("O resultado é positivo.\n");
+    } else if (resultado < 0) {
+        printf("O resultado é negativo.\n");
+    } else {
+        printf("O resultado é zero.\n");
+    }
+
+    // Verifica se o resultado é inteiro ou decimal
+    if (resultado == (int)resultado) {
+        printf("O resultado é um número inteiro.\n");
+    } else {
+        printf("O resultado é um número decimal.\n");
+    }
+
+    return 0;
+}
+17- Faça um programa que faça 5 perguntas para uma pessoa sobre um crime. As perguntas são:
+1. "Telefonou para a vítima?"
+2. "Esteve no local do crime?"
+3. "Mora perto da vítima?"
+4. "Devia para a vítima?"
+5. "Já trabalhou com a vítima?" O programa deve no final emitir uma classificação sobre a
+participação da pessoa no crime. Se a pessoa responder positivamente a 2 questões ela
+deve ser classificada como "Suspeita", entre 3 e 4 como "Cúmplice" e 5 como
+"Assassino". Caso contrário, ele será classificado como "Inocente".
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis para armazenar as respostas
+    char resposta1, resposta2, resposta3, resposta4, resposta5;
+
+    // Pergunta ao usuário sobre o crime
+    printf("Responda com 'S' para Sim ou 'N' para Não.\n");
+    printf("1. Telefonou para a vítima? ");
+    scanf(" %c", &resposta1);
+    printf("2. Esteve no local do crime? ");
+    scanf(" %c", &resposta2);
+    printf("3. Mora perto da vítima? ");
+    scanf(" %c", &resposta3);
+    printf("4. Devia para a vítima? ");
+    scanf(" %c", &resposta4);
+    printf("5. Já trabalhou com a vítima? ");
+    scanf(" %c", &resposta5);
+
+    // Conta o número de respostas positivas
+    int num_respostas_positivas = 0;
+    if (resposta1 == 'S' || resposta1 == 's') {
+        num_respostas_positivas++;
+    }
+    if (resposta2 == 'S' || resposta2 == 's') {
+        num_respostas_positivas++;
+    }
+    if (resposta3 == 'S' || resposta3 == 's') {
+        num_respostas_positivas++;
+    }
+    if (resposta4 == 'S' || resposta4 == 's') {
+        num_respostas_positivas++;
+    }
+    if (resposta5 == 'S' || resposta5 == 's') {
+        num_respostas_positivas++;
+    }
+
+    // Classifica a participação da pessoa no crime
+    if (num_respostas_positivas == 2) {
+        printf("Você é suspeito.\n");
+    } else if (num_respostas_positivas >= 3 && num_respostas_positivas <= 4) {
+        printf("Você é cúmplice.\n");
+    } else if (num_respostas_positivas == 5) {
+        printf("Você é o assassino.\n");
+    } else {
+        printf("Você é inocente.\n");
+    }
+
+    return 0;
+}
+
+18- Uma fruteira está vendendo frutas com a seguinte tabela de preços:
+1. Até 5 Kg Acima de 5 Kg
+2. Morango R$ 2,50 por Kg R$ 2,20 por Kg
+3. Maçã R$ 1,80 por Kg R$ 1,50 por Kg
+Se o cliente comprar mais de 8 Kg em frutas ou o valor total da compra ultrapassar R$
+25,00, receberá ainda um desconto de 10% sobre este total. Escreva um algoritmo para
+ler a quantidade (em Kg) de morangos e a quantidade (em Kg) de maças adquiridas e
+escreva o valor a ser pago pelo cliente.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    float kg_morangos, kg_macas, valor_total;
+
+    // Solicita ao usuário a quantidade de morangos e maçãs adquiridas
+    printf("Digite a quantidade de morangos (em Kg): ");
+    scanf("%f", &kg_morangos);
+    printf("Digite a quantidade de maçãs (em Kg): ");
+    scanf("%f", &kg_macas);
+
+    // Calcula o valor total da compra
+    float preco_morangos, preco_macas;
+    if (kg_morangos <= 5) {
+        preco_morangos = 2.50 * kg_morangos;
+    } else {
+        preco_morangos = 2.20 * kg_morangos;
+    }
+    if (kg_macas <= 5) {
+        preco_macas = 1.80 * kg_macas;
+    } else {
+        preco_macas = 1.50 * kg_macas;
+    }
+    valor_total = preco_morangos + preco_macas;
+
+    // Aplica o desconto, se necessário
+    if (kg_morangos + kg_macas > 8 || valor_total > 25.00) {
+        valor_total *= 0.90; // Aplica o desconto de 10%
+    }
+
+    // Imprime o valor a ser pago pelo cliente
+    printf("Valor a ser pago pelo cliente: R$ %.2f\n", valor_total);
+
+    return 0;
+}
+
+19- O Hipermercado Tabajara está com uma promoção de carnes que é imperdível. Confira:
+1. Até 5 Kg Acima de 5 Kg
+2. File Duplo R$ 4,90 por Kg R$ 5,80 por Kg
+3. Alcatra R$ 5,90 por Kg R$ 6,80 por Kg
+4. Picanha R$ 6,90 por Kg R$ 7,80 por Kg
+Para atender a todos os clientes, cada cliente poderá levar apenas um dos tipos de carne
+da promoção, porém não há limites para a quantidade de carne por cliente. Se compra
+for feita no cartão Tabajara o cliente receberá ainda um desconto de 5% sobre o total da
+compra. Escreva um programa que peça o tipo e a quantidade de carne comprada pelo
+usuário e gere um cupom fiscal, contendo as informações da compra: tipo e quantidade
+de carne, preço total, tipo de pagamento, valor do desconto e valor a pagar.
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    char tipo_carne;
+    float kg_carne, preco_kg, preco_total, desconto, valor_final;
+
+    // Solicita ao usuário o tipo e a quantidade de carne comprada
+    printf("Digite o tipo de carne (F - Filé Duplo, A - Alcatra, P - Picanha): ");
+    scanf(" %c", &tipo_carne);
+    printf("Digite a quantidade de carne (em Kg): ");
+    scanf("%f", &kg_carne);
+
+    // Determina o preço por Kg de acordo com o tipo de carne
+    switch (tipo_carne) {
+        case 'F':
+        case 'f':
+            if (kg_carne <= 5) {
+                preco_kg = 4.90;
+            } else {
+                preco_kg = 5.80;
+            }
+            break;
+        case 'A':
+        case 'a':
+            if (kg_carne <= 5) {
+                preco_kg = 5.90;
+            } else {
+                preco_kg = 6.80;
+            }
+            break;
+        case 'P':
+        case 'p':
+            if (kg_carne <= 5) {
+                preco_kg = 6.90;
+            } else {
+                preco_kg = 7.80;
+            }
+            break;
+        default:
+            printf("Tipo de carne inválido.\n");
+            return 0; // Encerra o programa
+    }
+
+    // Calcula o preço total da compra
+    preco_total = kg_carne * preco_kg;
+
+    // Verifica se o cliente pagará com cartão Tabajara e aplica o desconto, se necessário
+    char tipo_pagamento;
+    printf("Pagamento com cartão Tabajara? (S - Sim, N - Não): ");
+    scanf(" %c", &tipo_pagamento);
+    if (tipo_pagamento == 'S' || tipo_pagamento == 's') {
+        desconto = preco_total * 0.05; // Desconto de 5%
+    } else {
+        desconto = 0;
+    }
+
+    // Calcula o valor final a ser pago pelo cliente
+    valor_final = preco_total - desconto;
+
+    // Imprime o cupom fiscal
+    printf("\nCUPOM FISCAL\n");
+    printf("Tipo de carne: ");
+    switch (tipo_carne) {
+        case 'F':
+        case 'f':
+            printf("Filé Duplo\n");
+            break;
+        case 'A':
+        case 'a':
+            printf("Alcatra\n");
+            break;
+        case 'P':
+        case 'p':
+            printf("Picanha\n");
+            break;
+    }
+    printf("Quantidade de carne: %.2f Kg\n", kg_carne);
+    printf("Preço total: R$ %.2f\n", preco_total);
+    if (desconto > 0) {
+        printf("Tipo de pagamento: Cartão Tabajara\n");
+        printf("Valor do desconto: R$ %.2f\n", desconto);
+    } else {
+        printf("Tipo de pagamento: Dinheiro ou outro cartão\n");
+    }
+    printf("Valor a pagar: R$ %.2f\n", valor_final);
+
+    return 0;
+}
+
+20- Faça um Programa que leia um número inteiro menor que 1000 e imprima a quantidade de
+centenas, dezenas e unidades dele. Observando os termos no plural a colocação do "e", da vírgula
+entre outros. Exemplo:
+326 = 3 centenas, 2 dezenas e 6 unidades
+12 = 1 dezena e 2 unidades
+Testar com: 326, 300, 100, 320, 310,305, 301, 101, 311, 111, 25, 20, 10, 21, 11, 1, 7 e 16
+
+#include <stdio.h>
+
+int main() {
+    // Declaração da variável para armazenar o número
+    int num;
+
+    // Solicita ao usuário um número inteiro menor que 1000
+    printf("Digite um número inteiro menor que 1000: ");
+    scanf("%d", &num);
+
+    // Verifica se o número está dentro do intervalo permitido
+    if (num < 1 || num >= 1000) {
+        printf("Número inválido.\n");
+        return 0; // Encerra o programa
+    }
+
+    // Calcula a quantidade de centenas, dezenas e unidades
+    int centenas = num / 100;
+    int dezenas = (num % 100) / 10;
+    int unidades = num % 10;
+
+    // Imprime a quantidade de centenas, dezenas e unidades
+    printf("%d = ", num);
+
+    // Imprime a quantidade de centenas
+    if (centenas > 0) {
+        printf("%d centena%s", centenas, (centenas > 1) ? "s" : "");
+        if (dezenas > 0 || unidades > 0) {
+            printf(", ");
+        }
+    }
+
+    // Imprime a quantidade de dezenas
+    if (dezenas > 0) {
+        printf("%d dezena%s", dezenas, (dezenas > 1) ? "s" : "");
+        if (unidades > 0) {
+            printf(" e ");
+        }
+    }
+
+    // Imprime a quantidade de unidades
+    if (unidades > 0 || (centenas == 0 && dezenas == 0)) {
+        printf("%d unidade%s", unidades, (unidades > 1) ? "s" : "");
+    }
+
+    printf("\n");
+
+    return 0;
+}
+
+
 
 
 
